@@ -8,6 +8,7 @@ REACT_APP_AMBEE_API_KEY=REACT_APP_AMBEE_API_KEY
 
 ## To install:
 cd react-frontend-app
+
 npm install
 
 ## To start:

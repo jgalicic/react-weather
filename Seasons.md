@@ -1,11 +1,11 @@
-Seasons
+## Seasons
 
 winter
 spring
 summer
 fall
 
-Special
+## Holiday
 
 flm (Full Moon)
 nyd (New Year's Day)
@@ -23,7 +23,7 @@ cme (Christmas Eve)
 cms (Christmas)
 nye (New Year's Eve)
 
-Day Period
+## Day Period
 
 am1 (dawn)
 am2 (sunrise)
@@ -36,7 +36,7 @@ pm4 (twilight)
 pm5 (dusk)
 pm6 (night)
 
-Weather
+## Weather
 
 clear
 cloudy
