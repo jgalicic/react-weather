@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* DEVELOPMENT MODE */
+
+
+
+ /* .PageContainer {
+  outline: 2px solid red;
+}
+
+.UpperBar {
+  outline: 2px solid orange;
+}
+
+.UpperMiddleBar {
+  outline: 2px solid yellow;
+}
+
+.LowerMiddleBar {
+  outline: 2px solid green;
+}
+
+.AstroContainer {
+  outline: 2px solid blue;
+}
+
+.AstroContainerMobile {
+  outline: 2px solid blue;
+}
+
+.LowerBar {
+  outline: 2px solid purple;
+}  */

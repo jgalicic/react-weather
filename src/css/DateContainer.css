@@ -1,0 +1,24 @@
+.DateContainer {
+  display: flex;
+  align-items: top;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.DayOfWeek {
+  font-size: 10vw;
+}
+
+.MonthAndDate {
+  font-size: 10vw;
+}
+
+/* Mobile screens */
+@media only screen and (max-width: 600px) {
+  .DayOfWeek {
+    font-size: 11vw;
+  }
+  .MonthAndDate {
+    font-size: 11vw;
+  }
+}

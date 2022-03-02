@@ -1,0 +1,7 @@
+.CustomMessage {
+  padding-left: 20px;
+  margin: 10px 10px 10px 0;
+  font-size: 3vw;
+  z-index: 2;
+  max-width: 50%;
+}

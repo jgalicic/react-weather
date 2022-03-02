@@ -1,0 +1,73 @@
+.TempContainer {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+
+.Temperature {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 15vw;
+  line-height: .9; 
+  padding-left: 5vw;
+}
+
+.DegreeSymbol {
+  font-size: 9vw;
+  line-height: .7; 
+}
+
+
+
+.DegreeSymbol {
+  font-size: 9vw;
+  
+}
+
+.TempRangeContainer {
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+.LowTemp, .HighTemp {
+  font-size: 3vw;
+  margin: 0 2px;
+}
+
+.TempRangeBar {
+  align-self: center;
+  height:2vw;
+  width: 60%;
+  background-color: black;
+  border-radius: 15px;
+}
+
+/* Mobile screens */
+@media only screen and (max-width: 600px) {
+  .Temperature {
+    display: flex;
+    align-items: flex-start;
+    font-size: 25vw;
+    position:static;
+  }
+  .DegreeSymbol {
+    font-size: 15vw;
+    position: relative;
+    right: 1vw;
+    top: 1vh;
+  }
+
+  .LowTemp, .HighTemp {
+    font-size: 5.5vw;
+    margin: 0 2px;
+  }
+  .TempRangeBar {
+    height:4vw;
+  }
+}

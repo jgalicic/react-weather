@@ -1,0 +1,13 @@
+.TimeContainer {
+  font-size: 26vw;
+  position: relative;
+  top: 15vh;
+}
+
+/* Mobile screens */
+@media only screen and (max-width: 600px) {
+  .TimeContainer {
+    font-size: 38vw;
+    top: 1vh;
+  }
+}
