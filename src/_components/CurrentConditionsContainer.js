@@ -14,7 +14,7 @@ export default class CurrentConditionsContainer extends Component {
   }
 
   getWeatherIcon(){
-    if (this.props.current_conditions === null) {
+    if (this.props.current_conditions === null || this.props.current_conditions === undefined) {
       return ""
     } else {
 

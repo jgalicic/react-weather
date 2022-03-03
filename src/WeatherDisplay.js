@@ -167,6 +167,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_lunar_api_call")
       } else {
+        return {}
         return fetch(`https://api.weatherapi.com/v1/astronomy.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&dt=${year}-${month}-${date}`).then(res => res.json())
       }
     }
@@ -175,7 +176,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_aqi_api_call")
       } else {
-        
+        return {}
         return fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${config().lat}&lon=${config().lng}&appid=${config().openweathermap_ID}`).then(res => res.json())
       }
     }
@@ -184,6 +185,7 @@ export default class WeatherDisplay extends Component {
         if (config().rapidDevelopmentMode) {
           return getFakeDevData("fake_weather_api_call")
         } else {
+          return {}
           return fetch(`https://api.weatherapi.com/v1/forecast.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&days=7&aqi=yes&alerts=yes`).then(res => res.json())
       }
     }
@@ -193,7 +195,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_pollen_call")
       } else {
-   
+        return {}
         return fetch(`https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=${config().lat}&lng=${config().lng}`, {
           method: 'GET',
           headers: { "x-api-key": `${config().ambeeAPI_key}`, 'Content-Type': 'application/json' },
@@ -225,7 +227,29 @@ export default class WeatherDisplay extends Component {
 
       console.log("RES: ", res)
 
-      let updatedBgImg = bgImg(getHoliday(d), getSeason(Date.now()), getDayPeriod(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0])), res[3].current.condition.text)
+      let updatedBgImg = ""
+      let is_day = ""
+      let font_color = ""
+      let lunar = ""
+      let temp_min_color = ""
+      let temp_max_color = ""
+      let temp_range_gradient = ""
+
+
+      if (res[3].current) {
+        updatedBgImg = bgImg(getHoliday(d), getSeason(Date.now()), getDayPeriod(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0])), res[3].current.condition.text)
+      }
+
+      if (res[0].sunrise && res[0].sunset) {
+        is_day = calculateDayOrNight(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0]).sunrise, this.setSolarStats(res[0]).sunset)
+        font_color = calculateDayOrNight(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0]).sunrise, this.setSolarStats(res[0]).sunset) ? config().font_color_day : config().font_color_night
+      }
+
+      if (res[3].forecast) {
+        temp_min_color =`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.mintemp_f))})`
+        temp_max_color = `rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.maxtemp_f))})`
+        temp_range_gradient = `linear-gradient(90deg, ${`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.mintemp_f))})`} 5%, ${`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.maxtemp_f))})`} 95%)`
+      }
 
       this.setState({
 
@@ -233,19 +257,19 @@ export default class WeatherDisplay extends Component {
         current_weather : this.setCurrentWeather(res[3]),
         // custom_message : "",
         forecast_weather : this.setForecastWeather(res[3]),
-        is_day: calculateDayOrNight(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0]).sunrise, this.setSolarStats(res[0]).sunset),
+        is_day,
         img : {
           weather_bg_url : updatedBgImg,
           weather_icon : "",
         },
-        lunar: this.setLunarStats(res[1].astronomy.astro),
+        lunar: this.setLunarStats(res[1]),
         pollen :  res[4].data,
         solar: this.setSolarStats(res[0]),
         styles : {
-          font_color: calculateDayOrNight(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0]).sunrise, this.setSolarStats(res[0]).sunset) ? config().font_color_day : config().font_color_night,
-          temp_min_color: `rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.mintemp_f))})`,
-          temp_max_color: `rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.maxtemp_f))})`,
-          temp_range_gradient: `linear-gradient(90deg, ${`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.mintemp_f))})`} 5%, ${`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.maxtemp_f))})`} 95%)`
+          font_color,
+          temp_min_color,
+          temp_max_color,
+          temp_range_gradient,
         },
         time_and_date: this.set_time_and_date(d),
         toggle_seconds : false,
@@ -414,19 +438,19 @@ export default class WeatherDisplay extends Component {
     }
   }
 
-  setSolarStats(solarData) {
+  setSolarStats(solar_data) {
     const d = new Date()
     const solarObj = {}
     
-    if (solarData) {
+    if (solar_data) {
     
       // Populate solarObj with info from API
-      solarObj.day_length = solarData.day_length
+      solarObj.day_length = solar_data.day_length
 
       // Convert UTC times to local times
-      for (let key in solarData) {
+      for (let key in solar_data) {
         if (key.toLowerCase() !== "day_length") {
-          const myDate = new Date(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${solarData[key]} UTC`)
+          const myDate = new Date(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${solar_data[key]} UTC`)
 
           solarObj[key] = myDate
             .toTimeString()
@@ -475,21 +499,26 @@ export default class WeatherDisplay extends Component {
           day_period : getDayPeriod(d.toTimeString().substring(0, 5), solarObj)
         })
       }
+    } else {
+      console.log("Error: unable to set solar_data")
     }
     
     return solarObj
   }
 
-  setLunarStats(lunarData) {
+  setLunarStats(ld) {
     // TODO: divide lunar data times into 24 hour time and 12 hour display times
 
+    let lunar_data = ld
     let lunarObj = {}
 
-    if (lunarData) {
-      lunarObj.moon_illumination = lunarData.moon_illumination
-      lunarObj.moon_phase = lunarData.moon_phase
-      lunarObj.moonrise = lunarData.moonrise
-      lunarObj.moonset = lunarData.moonset
+    if (lunar_data.astronomy) {
+      lunarObj.moon_illumination = lunar_data.astronomy.astro.moon_illumination
+      lunarObj.moon_phase = lunar_data.astronomy.astro.moon_phase
+      lunarObj.moonrise = lunar_data.astronomy.astro.moonrise
+      lunarObj.moonset = lunar_data.astronomy.astro.moonset
+    } else {
+      console.log("Error: unable to set lunar_data")
     }
 
     return lunarObj
@@ -535,6 +564,8 @@ export default class WeatherDisplay extends Component {
       cwObj.wind_degree = cw_data.current.wind_degree
       cwObj.wind_dir = cw_data.current.wind_dir
       cwObj.wind_speed_mph = Math.round(cw_data.current.wind_mph)
+    } else {
+      console.log("Error: unable to set cw_data")
     }
 
     if (cw_data.forecast) {
@@ -558,6 +589,8 @@ export default class WeatherDisplay extends Component {
       fwObj.rain_accum_min_in = ""
       fwObj.snow_accum_max_in = ""
       fwObj.snow_accum_min_in = ""
+    } else {
+      console.log("Error: unable to set fw_data")
     }
 
     return fwObj
