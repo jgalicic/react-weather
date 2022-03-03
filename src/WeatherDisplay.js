@@ -167,7 +167,6 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_lunar_api_call")
       } else {
-        return {}
         return fetch(`https://api.weatherapi.com/v1/astronomy.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&dt=${year}-${month}-${date}`).then(res => res.json())
       }
     }
@@ -176,7 +175,6 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_aqi_api_call")
       } else {
-        return {}
         return fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${config().lat}&lon=${config().lng}&appid=${config().openweathermap_ID}`).then(res => res.json())
       }
     }
@@ -185,7 +183,6 @@ export default class WeatherDisplay extends Component {
         if (config().rapidDevelopmentMode) {
           return getFakeDevData("fake_weather_api_call")
         } else {
-          return {}
           return fetch(`https://api.weatherapi.com/v1/forecast.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&days=7&aqi=yes&alerts=yes`).then(res => res.json())
       }
     }
@@ -195,7 +192,6 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_pollen_call")
       } else {
-        return {}
         return fetch(`https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=${config().lat}&lng=${config().lng}`, {
           method: 'GET',
           headers: { "x-api-key": `${config().ambeeAPI_key}`, 'Content-Type': 'application/json' },
