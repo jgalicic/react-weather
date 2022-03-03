@@ -175,6 +175,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_aqi_api_call")
       } else {
+        
         return fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${config().lat}&lon=${config().lng}&appid=${config().openweathermap_ID}`).then(res => res.json())
       }
     }
@@ -192,6 +193,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_pollen_call")
       } else {
+   
         return fetch(`https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=${config().lat}&lng=${config().lng}`, {
           method: 'GET',
           headers: { "x-api-key": `${config().ambeeAPI_key}`, 'Content-Type': 'application/json' },
@@ -220,6 +222,8 @@ export default class WeatherDisplay extends Component {
           res[i] = item
         } 
       })
+
+      console.log("RES: ", res)
 
       let updatedBgImg = bgImg(getHoliday(d), getSeason(Date.now()), getDayPeriod(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0])), res[3].current.condition.text)
 
@@ -413,124 +417,150 @@ export default class WeatherDisplay extends Component {
   setSolarStats(solarData) {
     const d = new Date()
     const solarObj = {}
+    
+    if (solarData) {
+    
+      // Populate solarObj with info from API
+      solarObj.day_length = solarData.day_length
 
-        // Populate solarObj with info from API
-        solarObj.day_length = solarData.day_length
+      // Convert UTC times to local times
+      for (let key in solarData) {
+        if (key.toLowerCase() !== "day_length") {
+          const myDate = new Date(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${solarData[key]} UTC`)
 
-        // Convert UTC times to local times
-        for (let key in solarData) {
-          if (key.toLowerCase() !== "day_length") {
-            const myDate = new Date(
-              `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${
-                solarData[key]
-              } UTC`
-            )
-            solarObj[key] = myDate
-              .toTimeString()
-              .match(/[0-9]+[:][0-9]+/g)[0]
-          }
+          solarObj[key] = myDate
+            .toTimeString()
+            .match(/[0-9]+[:][0-9]+/g)[0]
         }
+      }
 
-        // Change sunrise_display from 24h format to 12h format
-        let sunrise_display = solarObj.sunrise
-        let sunrise_am_pm = "am"
-        let sunset_display = solarObj.sunset
-        let sunset_am_pm = "pm"
+      // Change sunrise_display from 24h format to 12h format
+      let sunrise_display = solarObj.sunrise
+      let sunrise_am_pm = "am"
+      let sunset_display = solarObj.sunset
+      let sunset_am_pm = "pm"
 
-        // Remove leading 0s from sunrise_display and set am/pm correctly
-        if (parseInt(sunrise_display.slice(0,2)) < 10) {
-          sunrise_display = solarObj.sunrise.slice(1)
-        } else if (parseInt(sunrise_display.slice(0,2)) === 12) {
-          sunrise_am_pm = "pm"
-        } else if (parseInt(sunrise_display.slice(0,2) > 12)) {
-          sunrise_display = parseInt(sunrise_display.slice(0,2)) - 12
-          sunrise_display = sunrise_display.toString() + solarObj.sunrise.slice(2)
-          sunrise_am_pm = "pm"
-        } else {
-          console.log("Error - check sunrise_display")
-        }
-        // Remove leading 0s from sunset_display and set am/pm correctly
-        if (parseInt(sunset_display.slice(0,2)) < 10) {
-          sunset_display = solarObj.sunset.slice(1)
-          sunset_am_pm = "am"
-        } else if (parseInt(sunset_display.slice(0,2)) === 12) {
-        } else if (sunset_display.slice(0,2) > 12) {
-          sunset_display = parseInt(sunset_display.slice(0,2)) - 12
-          sunset_display = sunset_display.toString() + solarObj.sunset.slice(2)
-        } else {
-          console.log("Error - check sunset_display")
-        }
 
-        solarObj.sunrise_display = sunrise_display
-        solarObj.sunrise_am_pm = sunrise_am_pm
-        solarObj.sunset_display = sunset_display
-        solarObj.sunset_am_pm = sunset_am_pm
+      // Remove leading 0s from sunrise_display and set am/pm correctly
+      if (parseInt(sunrise_display.slice(0,2)) < 10) {
+        sunrise_display = solarObj.sunrise.slice(1)
+      } else if (parseInt(sunrise_display.slice(0,2)) === 12) {
+        sunrise_am_pm = "pm"
+      } else if (parseInt(sunrise_display.slice(0,2) > 12)) {
+        sunrise_display = parseInt(sunrise_display.slice(0,2)) - 12
+        sunrise_display = sunrise_display.toString() + solarObj.sunrise.slice(2)
+        sunrise_am_pm = "pm"
+      } else {
+        console.log("Error - check sunrise_display")
+      }
+      // Remove leading 0s from sunset_display and set am/pm correctly
+      if (parseInt(sunset_display.slice(0,2)) < 10) {
+        sunset_display = solarObj.sunset.slice(1)
+        sunset_am_pm = "am"
+      } else if (parseInt(sunset_display.slice(0,2)) === 12) {
+      } else if (sunset_display.slice(0,2) > 12) {
+        sunset_display = parseInt(sunset_display.slice(0,2)) - 12
+        sunset_display = sunset_display.toString() + solarObj.sunset.slice(2)
+      } else {
+        console.log("Error - check sunset_display")
+      }
 
+      solarObj.sunrise_display = sunrise_display
+      solarObj.sunrise_am_pm = sunrise_am_pm
+      solarObj.sunset_display = sunset_display
+      solarObj.sunset_am_pm = sunset_am_pm
+
+      if (this.state.day_period !== getDayPeriod(d.toTimeString().substring(0, 5), solarObj)) {
         this.setState({
           day_period : getDayPeriod(d.toTimeString().substring(0, 5), solarObj)
         })
-
-      return solarObj
+      }
+    }
+    
+    return solarObj
   }
 
   setLunarStats(lunarData) {
     // TODO: divide lunar data times into 24 hour time and 12 hour display times
-     return {
-      moon_illumination : lunarData.moon_illumination,
-      moon_phase : lunarData.moon_phase,
-      moonrise : lunarData.moonrise,
-      moonset : lunarData.moonset
-     }
+
+    let lunarObj = {}
+
+    if (lunarData) {
+      lunarObj.moon_illumination = lunarData.moon_illumination
+      lunarObj.moon_phase = lunarData.moon_phase
+      lunarObj.moonrise = lunarData.moonrise
+      lunarObj.moonset = lunarData.moonset
+    }
+
+    return lunarObj
   }
 
   setAQI(aqi_data) {
-      return {
-      co_ppm : aqi_data.list[0].components.co,
-      nh3_val : aqi_data.list[0].components.nh3,
-      no_val : aqi_data.list[0].components.no,
-      no2_val : aqi_data.list[0].components.no2,
-      o3_val : aqi_data.list[0].components.o3,
-      pm10_val : aqi_data.list[0].components.pm10,
-      pm2_5_val : aqi_data.list[0].components.pm2_5,
-      so2_val : aqi_data.list[0].components.so2
+
+    let aqiObj = {}
+
+    if (aqi_data.list) {
+      aqiObj.co_ppm = aqi_data.list[0].components.co
+      aqiObj.nh3_val = aqi_data.list[0].components.nh3
+      aqiObj.no_val = aqi_data.list[0].components.no
+      aqiObj.no2_val = aqi_data.list[0].components.no2
+      aqiObj.o3_val = aqi_data.list[0].components.o3
+      aqiObj.pm10_val = aqi_data.list[0].components.pm10
+      aqiObj.pm2_5_val = aqi_data.list[0].components.pm2_5
+      aqiObj.so2_val = aqi_data.list[0].components.so2
+    } else {
+      console.log("Error: unable to set aqi_data")
     }
+
+    return aqiObj
   }
 
   setCurrentWeather(cw_data) {
-     console.log("CW", cw_data)
-    return {
-        chance_hail: null,
-        chance_precip: (Math.max(cw_data.forecast.forecastday[0].day.daily_chance_of_rain, cw_data.forecast.forecastday[0].day.daily_chance_of_snow)),
-        chance_rain: cw_data.forecast.forecastday[0].day.daily_chance_of_rain,
-        chance_snow: cw_data.forecast.forecastday[0].day.daily_chance_of_snow,
-        chance_thunder: null,
-        cloud_cover: cw_data.current.cloud,
-        current_conditions: cw_data.current.condition.text,
-        gust_mph: Math.round(cw_data.current.gust_mph),
-        humidity: cw_data.current.humidity,
-        pressure_mb: cw_data.current.pressure_mb,
-        pressure_in: cw_data.current.pressure_in,
-        temp_current_f: Math.round(cw_data.current.temp_f),
-        temp_high_f: Math.max(Math.round(cw_data.current.temp_f), Math.round(cw_data.forecast.forecastday[0].day.maxtemp_f)),
-        temp_low_f: Math.min(Math.round(cw_data.current.temp_f), Math.round(cw_data.forecast.forecastday[0].day.mintemp_f)),
-        uv_index: cw_data.current.uv,
-        visibility_mi: cw_data.current.vis_miles,
-        wind_degree: cw_data.current.wind_degree,
-        wind_dir: cw_data.current.wind_dir,
-        wind_speed_mph: Math.round(cw_data.current.wind_mph),
+    // console.log("CW", cw_data)
+
+    let cwObj = {}
+
+    if (cw_data.current) {
+      cwObj.cloud_cover = cw_data.current.cloud,
+      cwObj.current_conditions = cw_data.current.condition.text 
+      cwObj.gust_mph = Math.round(cw_data.current.gust_mph)
+      cwObj.humidity = cw_data.current.humidity
+      cwObj.pressure_mb = cw_data.current.pressure_mb
+      cwObj.pressure_in = cw_data.current.pressure_in
+      cwObj.temp_current_f = Math.round(cw_data.current.temp_f)
+      cwObj.temp_high_f = Math.max(Math.round(cw_data.current.temp_f), Math.round(cw_data.forecast.forecastday[0].day.maxtemp_f))
+      cwObj.temp_low_f = Math.min(Math.round(cw_data.current.temp_f), Math.round(cw_data.forecast.forecastday[0].day.mintemp_f))
+      cwObj.uv_index = cw_data.current.uv
+      cwObj.visibility_mi = cw_data.current.vis_miles
+      cwObj.wind_degree = cw_data.current.wind_degree
+      cwObj.wind_dir = cw_data.current.wind_dir
+      cwObj.wind_speed_mph = Math.round(cw_data.current.wind_mph)
     }
+
+    if (cw_data.forecast) {
+      cwObj.chance_precip = Math.max(cw_data.forecast.forecastday[0].day.daily_chance_of_rain, cw_data.forecast.forecastday[0].day.daily_chance_of_snow)
+      cwObj.chance_rain = cw_data.forecast.forecastday[0].day.daily_chance_of_rain
+      cwObj.chance_snow = cw_data.forecast.forecastday[0].day.daily_chance_of_snow
+    }
+
+    return cwObj
   }
 
   setForecastWeather(fw_data) {
     // console.log("FW", fw_data)
-    return {
-        forecast_detailed: "",
-        forecast_short: fw_data.forecast.forecastday[0].day.condition.text,
-        rain_accum_max_in: fw_data.forecast.forecastday[0].day.totalprecip_in,
-        rain_accum_min_in: null,
-        snow_accum_max_in: null,
-        snow_accum_min_in: null,
-      }
+
+    let fwObj = {}
+
+    if (fw_data.forecast) {
+      fwObj.forecast_short = fw_data.forecast.forecastday[0].day.condition.text
+      fwObj.rain_accum_max_in = fw_data.forecast.forecastday[0].day.totalprecip_in
+      fwObj.forecast_detailed = ""
+      fwObj.rain_accum_min_in = ""
+      fwObj.snow_accum_max_in = ""
+      fwObj.snow_accum_min_in = ""
+    }
+
+    return fwObj
   }
 
   render() {
