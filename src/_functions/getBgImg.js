@@ -204,123 +204,124 @@ export default function getBgImg(holiday, season, period, weather) {
       bgImgURL += `spring/`
       if (day_period === "am1") {
         bgImgURL += `am1/`
-        if (weather_name === "clear") bgImgURL += `clear/erik-witsoe-pvoQJym18Jg-unsplash.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/tersius-van-rhyn-xcQWMPm9fG8-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/christian-lambert-3x5S_5SnFe4-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/noaa-jU-JOEZ2saQ-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/peter-burdon-xhWcmyiq310-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/federico-bottos-JUFuI-kBtas-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/cezar-sampaio-AVwzUcl0waQ-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/angelo-pantazis-2jAhSsF85IY-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/pedro-netto-hBdz9PuHUs8-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/mike-hindle-Ky_WLig0EmM-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/johannes-plenio-E-Zuyev2XWo-unsplash.jpg`
       } else if (day_period === "am2") {
         bgImgURL += `am2/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/michael-DXQB5D1njMY-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/robert-wiedemann-7VIEHC9kZZ0-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/sergey-lapunin-APf777nCLXU-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/zac-porter-RSFpv-CDBOM-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/jan-huber-dMJLwMh8n8w-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/slava-stupachenko-tSc0IGImr-c-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/johnny-mcclung-kGZ7uFl0qkk-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/jack-blueberry-RXjlihsqGsg-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/rainer-gelhot-8KvsQbRcllE-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/johannes-plenio-2QUvkQTBh5s-unsplash.jpg`
       } else if (day_period === "am3") {
         bgImgURL += `am3/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/aniket-bhattacharya-CgyrwbE6Hm4-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/marita-kavelashvili-ugnrXk1129g-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/rodion-kutsaev-tcPUbu8H2c0-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/rodion-kutsaev-QN2BhLmoUJ0-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/saurav-mahto-ijWb7URJQyo-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/johannes-plenio-Z6E4rJemy24-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/aaron-burden-WAa81dKJbzA-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/alexandra-vo-JuVs0uCYUvA-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/jen-we-Kv3Xk2gfhyU-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/todor-ilchevski-Yfr33Jd28Eo-unsplash.jpg`
       } else if (day_period === "am4") {
         bgImgURL += `am4/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/aaron-burden-DjsBoWp7HV0-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/sonika-agarwal-ZCSDbdZ-Ym8-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/kiwihug-ZB3OBIkNh6E-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/paulina-k-8nqRkIzl_1w-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/eduardo-muniz-4sRVyiRptfE-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/connor-misset-TiDCM8lsgUA-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/amanda-frank-MvsjXlQtkCY-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/johannes-plenio-MVr6pgZzlbY-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/simon-kuznetsov-igQx3ETkKZY-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/suam-FjHYMJ_P_Nc-unsplash.jpg`
       } else if (day_period === "pm1") {
         bgImgURL += `pm1/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/arno-smit-sKJ7zSylUao-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/ash-from-modern-afflatus-NQ6Lh81BTRs-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/june-admiraal-r4RpK18X718-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/jack-blueberry-_0aQnhR8q_0-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/david-marcu-CaQ_KITtnVY-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/keenan-barber-xDC4NWQC_nM-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/kasia-gajek-QCnQV5teMzU-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/valentin-hintikka-RztipXeQiA0-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/marco-forno-qJ5h-gU3QKo-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/michael-krahn-gG5FPuJrfZY-unsplash.jpg`
       } else if (day_period === "pm2") {
         bgImgURL += `pm2/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/uwe-conrad-0YcR_WttkoA-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/masaaki-komori-_SbeCWYjwCQ-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/ricardo-gomez-angel-_-bjuZYtc40-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/markus-winkler-PRUxzzIcw1g-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/ice-tea-ZAul1EmXrdI-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/clark-wilson-mwzvQy6eNbs-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/clark-wilson-QQompa1JMoI-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/georg-eiermann-aVOmGbN5m0U-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/john-tecuceanu-oSrqmMMk6vI-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/daiga-ellaby-YnNczu62rdk-unsplash.jpg`
       } else if (day_period === "pm3") {
         bgImgURL += `pm3/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/daiga-ellaby-YnNczu62rdk-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/aki-nakazawa-GYubqX9kTQg-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/johanneke-kroesbergen-kamps-_PZSMlRPRR4-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/spencer-eccles_jones-A2a2o_TSefM-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/daria-nepriakhina-2mSzfaseWvg-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/radek-kilijanek-Mz0rv0EbJGk-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/pete-nowicki-_87lZuOyg64-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/pepe-nero-iBexrEQaWLQ-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/austin-schmid-r7zjJ63kAPU-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/hosein-zanbori-QPYtOXImZCY-unsplash.jpg`
       } else if (day_period === "pm4") {
         bgImgURL += `pm4/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`      } else if (day_period === "pm5") {
+        if (weather_name === "clear") bgImgURL += `clear/simon-berger-twukN12EN7c-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/nick-fewings-ShV2MGxzK4g-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/lennart-hellwig-YQwVE8cpi4g-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/thomas-park-9y0kKtjNu-M-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/kyle-0FBFheQ_MOo-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/timothy-dykes-VJ20ThHUFig-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/elizabeth-kay-IEb6tsv-TWc-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/ivan-aleksic-2-rmsMa4Thc-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/vimal-cleetus-Hv7Q9LFADgk-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/basil-smith-KmsDi5XH__0-unsplash.jpg`      
+      } else if (day_period === "pm5") {
         bgImgURL += `pm5/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/trevor-mckinnon-XfjmDeR7P7E-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/mario-mendez-jWC4RvQS1YQ-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/emmanuel-appiah-bXmCr4ww2JU-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/david-dibert-nrX-gcVw8nE-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/remy-fouassier-kjE7bvuLB44-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/tamara-gore-ldZrvy2SOEA-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/christina-rumpf-DhY1f4F4PDU-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/roman-datsiuk-SBDfsNqCTrg-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/vimal-cleetus-Hv7Q9LFADgk-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/shlomo-shalev-MJNXWd4rul8-unsplash.jpg`
       } else if (day_period === "pm6") {
         bgImgURL += `pm6/`
-        if (weather_name === "clear") bgImgURL += `clear/xxx.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/xxx.jpg`
-        if (weather_name === "fog") bgImgURL += `fog/xxx.jpg`
-        if (weather_name === "frost") bgImgURL += `frost/xxx.jpg`
-        if (weather_name === "haze") bgImgURL += `haze/xxx.jpg`
-        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/xxx.jpg`
-        if (weather_name === "rain") bgImgURL += `rain/xxx.jpg`
-        if (weather_name === "snow") bgImgURL += `snow/xxx.jpg`
-        if (weather_name === "sunrain") bgImgURL += `sunrain/xxx.jpg`
-        if (weather_name === "thunder") bgImgURL += `thunder/xxx.jpg`
+        if (weather_name === "clear") bgImgURL += `clear/jachan-devol-ksdTuDc1ibg-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/annie-spratt-RGPsrTl5JeM-unsplash.jpg`
+        if (weather_name === "fog") bgImgURL += `fog/jeremy-perkins-Y6zQOIby_Ow-unsplash.jpg`
+        if (weather_name === "frost") bgImgURL += `frost/johannes-groll-upXoQv5GAr8-unsplash.jpg`
+        if (weather_name === "haze") bgImgURL += `haze/lucie-capkova-1GUwgCMPVKw-unsplash.jpg`
+        if (weather_name === "partlycloudy") bgImgURL += `partlycloudy/dominik-fischer-BRlvvBYeyqw-unsplash.jpg`
+        if (weather_name === "rain") bgImgURL += `rain/robert-nelson-eXRVrvF3HT8-unsplash.jpg`
+        if (weather_name === "snow") bgImgURL += `snow/oliver-spicer-E0CZzmGtF_A-unsplash.jpg`
+        if (weather_name === "sunrain") bgImgURL += `sunrain/thomas-le-9yXQTSdy4Ao-unsplash.jpg`
+        if (weather_name === "thunder") bgImgURL += `thunder/tengyart-d8UZxgJUR_0-unsplash.jpg`
       } else {
         console.error("Check day_period")
       }

@@ -159,7 +159,9 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_solar_api_call")
       } else {
-        return fetch(`https://api.sunrise-sunset.org/json?lat=${config().lat}&lng=${config().lng}`).then(res => res.json())
+        return fetch(`https://desolate-waters-39923.herokuapp.com/api/solar/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
+        //  Depricated - 
+        //  return fetch(`https://api.sunrise-sunset.org/json?lat=${config().lat}&lng=${config().lng}`).then(res => res.json())
       }
     }
 
@@ -167,7 +169,9 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_lunar_api_call")
       } else {
-        return fetch(`https://api.weatherapi.com/v1/astronomy.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&dt=${year}-${month}-${date}`).then(res => res.json())
+        return fetch(`https://desolate-waters-39923.herokuapp.com/api/lunar/${config().lat}/${config().lng}/${year}/${month}/${date}`).then(res => res.json()).then((res) => res.data)
+        //  Depricated - 
+        // return fetch(`https://api.weatherapi.com/v1/astronomy.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&dt=${year}-${month}-${date}`).then(res => res.json())
       }
     }
 
@@ -175,7 +179,10 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_aqi_api_call")
       } else {
-        return fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${config().lat}&lon=${config().lng}&appid=${config().openweathermap_ID}`).then(res => res.json())
+        return fetch(`https://desolate-waters-39923.herokuapp.com/api/aqi/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.list[0].components)
+        //  Depricated - 
+        // return fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${config().lat}&lon=${config().lng}&appid=${config().openweathermap_ID}`).then(res => res.json())
+        
       }
     }
 
@@ -183,7 +190,9 @@ export default class WeatherDisplay extends Component {
         if (config().rapidDevelopmentMode) {
           return getFakeDevData("fake_weather_api_call")
         } else {
-          return fetch(`https://api.weatherapi.com/v1/forecast.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&days=7&aqi=yes&alerts=yes`).then(res => res.json())
+          return fetch(`https://desolate-waters-39923.herokuapp.com/api/weather/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
+        //  Depricated - 
+        // return fetch(`https://api.weatherapi.com/v1/forecast.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&days=7&aqi=yes&alerts=yes`).then(res => res.json())
       }
     }
 
@@ -192,16 +201,18 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_pollen_call")
       } else {
-        return fetch(`https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=${config().lat}&lng=${config().lng}`, {
-          method: 'GET',
-          headers: { "x-api-key": `${config().ambeeAPI_key}`, 'Content-Type': 'application/json' },
-        })
-        .then(response => {
-          return response.json()
-        })
-        .catch(err => {
-            console.error(err);
-        });
+        return fetch(`https://desolate-waters-39923.herokuapp.com/api/pollen/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.data[0])
+        //  Depricated - 
+        // return fetch(`https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=${config().lat}&lng=${config().lng}`, {
+        //   method: 'GET',
+        //   headers: { "x-api-key": `${config().ambeeAPI_key}`, 'Content-Type': 'application/json' },
+        // })
+        // .then(response => {
+        //   return response.json()
+        // })
+        // .catch(err => {
+        //     console.error(err);
+        // });
       }
     }
 
@@ -214,11 +225,13 @@ export default class WeatherDisplay extends Component {
 
       
       response.forEach((item, i) => {
-        if (item.results) {
-          res[i] = item.results
-        } else {
-          res[i] = item
-        } 
+        if (item) {
+          if (item.results) {
+            res[i] = item.results
+          } else {
+            res[i] = item
+          } 
+        }
       })
 
       console.log("RES: ", res)
@@ -505,14 +518,13 @@ export default class WeatherDisplay extends Component {
   setLunarStats(ld) {
     // TODO: divide lunar data times into 24 hour time and 12 hour display times
 
-    let lunar_data = ld
     let lunarObj = {}
 
-    if (lunar_data.astronomy) {
-      lunarObj.moon_illumination = lunar_data.astronomy.astro.moon_illumination
-      lunarObj.moon_phase = lunar_data.astronomy.astro.moon_phase
-      lunarObj.moonrise = lunar_data.astronomy.astro.moonrise
-      lunarObj.moonset = lunar_data.astronomy.astro.moonset
+    if (ld) {
+      lunarObj.moon_illumination = ld.moon_illumination
+      lunarObj.moon_phase = ld.moon_phase
+      lunarObj.moonrise = ld.moonrise
+      lunarObj.moonset = ld.moonset
     } else {
       console.log("Error: unable to set lunar_data")
     }
@@ -524,15 +536,15 @@ export default class WeatherDisplay extends Component {
 
     let aqiObj = {}
 
-    if (aqi_data.list) {
-      aqiObj.co_ppm = aqi_data.list[0].components.co
-      aqiObj.nh3_val = aqi_data.list[0].components.nh3
-      aqiObj.no_val = aqi_data.list[0].components.no
-      aqiObj.no2_val = aqi_data.list[0].components.no2
-      aqiObj.o3_val = aqi_data.list[0].components.o3
-      aqiObj.pm10_val = aqi_data.list[0].components.pm10
-      aqiObj.pm2_5_val = aqi_data.list[0].components.pm2_5
-      aqiObj.so2_val = aqi_data.list[0].components.so2
+    if (aqi_data) {
+      aqiObj.co_ppm = aqi_data.co
+      aqiObj.nh3_val = aqi_data.nh3
+      aqiObj.no_val = aqi_data.no
+      aqiObj.no2_val = aqi_data.no2
+      aqiObj.o3_val = aqi_data.o3
+      aqiObj.pm10_val = aqi_data.pm10
+      aqiObj.pm2_5_val = aqi_data.pm2_5
+      aqiObj.so2_val = aqi_data.so2
     } else {
       console.log("Error: unable to set aqi_data")
     }
