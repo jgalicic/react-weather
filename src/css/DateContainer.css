@@ -15,10 +15,23 @@
 
 /* Mobile screens */
 @media only screen and (max-width: 600px) {
+
+
+
+  .DateContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+
+
   .DayOfWeek {
-    font-size: 11vw;
+    font-size: 14vw;
+    text-align: center;
   }
   .MonthAndDate {
-    font-size: 11vw;
+    font-size: 20vw;
+    text-align: center;
   }
 }

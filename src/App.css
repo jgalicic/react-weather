@@ -19,11 +19,13 @@ body {
   flex-direction: column;
 }
 
+/* Day and Date */
 .UpperBar {
   height: 22vh;
   background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.3) 100%);
 }
 
+/* Time */
 .UpperMiddleBar {
   display: flex;
   flex-direction: row;
@@ -33,6 +35,7 @@ body {
   background: linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 100%);
 }
 
+/* Temp and Weather Icon */
 .LowerMiddleBar {
   display: flex;
   flex-direction: row;
@@ -41,6 +44,7 @@ body {
   background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
 }
 
+/* Sunrise & Sunset */
 .AstroContainer {
   display: flex;
   flex-direction: column;
@@ -53,9 +57,11 @@ body {
   right: 15px;
 }
 
+
 .AstroContainerMobile {
   display: none;
 }
+
 
 .LowerBar {
   display: flex;
@@ -68,37 +74,45 @@ body {
 
 
 
-
-
 /* Mobile screens */
 
 @media only screen and (max-width: 600px) {
+
+  /* Day and Date */
   .UpperBar {
-    height: 10vh;
+    height: 30vh;
     background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.3) 100%);
   }
+
+  /* Time */
   .UpperMiddleBar {
-    height: 40vh;
+    height: 26vh;
     background: linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 100%);
   }
+
+  /* Temp and Weather Icon */
   .LowerMiddleBar {
-    height: 30vh;
+    height: 24vh;
     justify-content: space-around;
     background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.3) 100%);
   }
   .AstroContainer {
     display: none;
   }
+
+  /* Sunrise & Sunset */
   .AstroContainerMobile {
-    height: 10vh;
+    height: 18vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     background: linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.5) 100%);
 
   }
+
+  
   .LowerBar {
-    height: 10vh;
+    height: 2vh;
     background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.8) 100%);
   }
 

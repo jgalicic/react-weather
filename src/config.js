@@ -1,6 +1,6 @@
 export default function config() {
   return {
-    rapidDevelopmentMode: true,
+    rapidDevelopmentMode: false,
     font_color_day: `rgb(255, 253, 240)`,
     font_color_night: `rgb(224, 210, 137)`,
     lat: `47.6`,
