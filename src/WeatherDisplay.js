@@ -234,7 +234,7 @@ export default class WeatherDisplay extends Component {
         }
       })
 
-      console.log("RES: ", res)
+      // console.log("RES: ", res)
 
       let updatedBgImg = ""
       let is_day = ""
