@@ -301,7 +301,7 @@ export default function getBgImg(holiday, season, period, weather) {
       } else if (day_period === "pm5") {
         bgImgURL += `pm5/`
         if (weather_name === "clear") bgImgURL += `clear/trevor-mckinnon-XfjmDeR7P7E-unsplash.jpg`
-        if (weather_name === "cloudy") bgImgURL += `cloudy/mario-mendez-jWC4RvQS1YQ-unsplash.jpg`
+        if (weather_name === "cloudy") bgImgURL += `cloudy/irina-iriser-zquHAkd2uhA-unsplash.jpg`
         if (weather_name === "fog") bgImgURL += `fog/emmanuel-appiah-bXmCr4ww2JU-unsplash.jpg`
         if (weather_name === "frost") bgImgURL += `frost/david-dibert-nrX-gcVw8nE-unsplash.jpg`
         if (weather_name === "haze") bgImgURL += `haze/remy-fouassier-kjE7bvuLB44-unsplash.jpg`
