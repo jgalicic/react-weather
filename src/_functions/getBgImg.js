@@ -68,10 +68,7 @@ export default function getBgImg(holiday, season, period, weather) {
     }
   }
 
-  if (holiday_name.length > 1) {
-    bgImgURL = `/${holiday_name}/${weather_name}/${day_period}`
-  } else {
-    // If there is no holiday
+
 
     if (season_name === "fall") {
       bgImgURL += `fall/`
@@ -580,7 +577,13 @@ export default function getBgImg(holiday, season, period, weather) {
     } else {
       console.error("Check season name")
     }
-  }
+  
+  // TODO: Add holidays
+
+  // if (holiday_name.length > 1) {
+  //   bgImgURL = `/${holiday_name}/${weather_name}/${day_period}`
+  // } 
+
   //return bgImgURL
   console.log(bgImgURL)
   return bgImgURL
