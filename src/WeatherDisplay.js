@@ -159,7 +159,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_solar_api_call")
       } else {
-        return fetch(`https://desolate-waters-39923.herokuapp.com/api/solar/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
+        return fetch(`https://react-weather-backend-relay.herokuapp.com/api/solar/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
         //  Depricated - 
         //  return fetch(`https://api.sunrise-sunset.org/json?lat=${config().lat}&lng=${config().lng}`).then(res => res.json())
       }
@@ -169,7 +169,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_lunar_api_call")
       } else {
-        return fetch(`https://desolate-waters-39923.herokuapp.com/api/lunar/${config().lat}/${config().lng}/${year}/${month}/${date}`).then(res => res.json()).then((res) => res.data)
+        return fetch(`https://react-weather-backend-relay.herokuapp.com/api/lunar/${config().lat}/${config().lng}/${year}/${month}/${date}`).then(res => res.json()).then((res) => res.data)
         //  Depricated - 
         // return fetch(`https://api.weatherapi.com/v1/astronomy.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&dt=${year}-${month}-${date}`).then(res => res.json())
       }
@@ -179,7 +179,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_aqi_api_call")
       } else {
-        return fetch(`https://desolate-waters-39923.herokuapp.com/api/aqi/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.list[0].components)
+        return fetch(`https://react-weather-backend-relay.herokuapp.com/api/aqi/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.list[0].components)
         //  Depricated - 
         // return fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${config().lat}&lon=${config().lng}&appid=${config().openweathermap_ID}`).then(res => res.json())
         
@@ -190,7 +190,7 @@ export default class WeatherDisplay extends Component {
         if (config().rapidDevelopmentMode) {
           return getFakeDevData("fake_weather_api_call")
         } else {
-          return fetch(`https://desolate-waters-39923.herokuapp.com/api/weather/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
+          return fetch(`https://react-weather-backend-relay.herokuapp.com/api/weather/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
         //  Depricated - 
         // return fetch(`https://api.weatherapi.com/v1/forecast.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&days=7&aqi=yes&alerts=yes`).then(res => res.json())
       }
@@ -201,7 +201,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_pollen_call")
       } else {
-        return fetch(`https://desolate-waters-39923.herokuapp.com/api/pollen/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.data[0])
+        return fetch(`https://react-weather-backend-relay.herokuapp.com/api/pollen/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.data[0])
         //  Depricated - 
         // return fetch(`https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=${config().lat}&lng=${config().lng}`, {
         //   method: 'GET',
