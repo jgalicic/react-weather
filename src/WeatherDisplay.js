@@ -160,9 +160,7 @@ export default class WeatherDisplay extends Component {
         return getFakeDevData("fake_solar_api_call")
       } else {
         return fetch(`https://react-weather-backend-relay.herokuapp.com/api/solar/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
-        //  Depricated - 
-        //  return fetch(`https://api.sunrise-sunset.org/json?lat=${config().lat}&lng=${config().lng}`).then(res => res.json())
-      }
+     }
     }
 
     function getLunar() {
@@ -170,8 +168,6 @@ export default class WeatherDisplay extends Component {
         return getFakeDevData("fake_lunar_api_call")
       } else {
         return fetch(`https://react-weather-backend-relay.herokuapp.com/api/lunar/${config().lat}/${config().lng}/${year}/${month}/${date}`).then(res => res.json()).then((res) => res.data)
-        //  Depricated - 
-        // return fetch(`https://api.weatherapi.com/v1/astronomy.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&dt=${year}-${month}-${date}`).then(res => res.json())
       }
     }
 
@@ -180,9 +176,6 @@ export default class WeatherDisplay extends Component {
         return getFakeDevData("fake_aqi_api_call")
       } else {
         return fetch(`https://react-weather-backend-relay.herokuapp.com/api/aqi/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.list[0].components)
-        //  Depricated - 
-        // return fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${config().lat}&lon=${config().lng}&appid=${config().openweathermap_ID}`).then(res => res.json())
-        
       }
     }
 
@@ -191,9 +184,7 @@ export default class WeatherDisplay extends Component {
           return getFakeDevData("fake_weather_api_call")
         } else {
           return fetch(`https://react-weather-backend-relay.herokuapp.com/api/weather/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
-        //  Depricated - 
-        // return fetch(`https://api.weatherapi.com/v1/forecast.json?key=${config().weatherAPI_key}&q=${config().lat},${config().lng}&days=7&aqi=yes&alerts=yes`).then(res => res.json())
-      }
+        }
     }
 
     function getPollen() {
@@ -202,27 +193,14 @@ export default class WeatherDisplay extends Component {
         return getFakeDevData("fake_pollen_call")
       } else {
         return fetch(`https://react-weather-backend-relay.herokuapp.com/api/pollen/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.data[0])
-        //  Depricated - 
-        // return fetch(`https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=${config().lat}&lng=${config().lng}`, {
-        //   method: 'GET',
-        //   headers: { "x-api-key": `${config().ambeeAPI_key}`, 'Content-Type': 'application/json' },
-        // })
-        // .then(response => {
-        //   return response.json()
-        // })
-        // .catch(err => {
-        //     console.error(err);
-        // });
       }
     }
-
 
     const initialStateElements = [getSolar(), getLunar(), getAQI(), getWeather(), getPollen()]
 
     Promise.all(initialStateElements).then(response => {
 
       let res = []
-
       
       response.forEach((item, i) => {
         if (item) {
@@ -234,8 +212,6 @@ export default class WeatherDisplay extends Component {
         }
       })
 
-      // console.log("RES: ", res)
-
       let updatedBgImg = ""
       let is_day = ""
       let font_color = ""
@@ -245,16 +221,16 @@ export default class WeatherDisplay extends Component {
       let temp_range_gradient = ""
 
 
-      if (res[3].current) {
+      if (res[3]) {
         updatedBgImg = bgImg(getHoliday(d), getSeason(Date.now()), getDayPeriod(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0])), res[3].current.condition.text)
       }
 
-      if (res[0].sunrise && res[0].sunset) {
+      if (res[0]) {
         is_day = calculateDayOrNight(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0]).sunrise, this.setSolarStats(res[0]).sunset)
         font_color = calculateDayOrNight(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0]).sunrise, this.setSolarStats(res[0]).sunset) ? config().font_color_day : config().font_color_night
       }
 
-      if (res[3].forecast) {
+      if (res[3]) {
         temp_min_color =`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.mintemp_f))})`
         temp_max_color = `rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.maxtemp_f))})`
         temp_range_gradient = `linear-gradient(90deg, ${`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.mintemp_f))})`} 5%, ${`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.maxtemp_f))})`} 95%)`
@@ -272,7 +248,7 @@ export default class WeatherDisplay extends Component {
           weather_icon : "",
         },
         lunar: this.setLunarStats(res[1]),
-        pollen :  res[4].data,
+        pollen :  this.setPollen(res[4]),
         solar: this.setSolarStats(res[0]),
         styles : {
           font_color,
@@ -350,7 +326,7 @@ export default class WeatherDisplay extends Component {
       // Update weather info every hour during the night
       if (!this.state.is_day) {
         if (d.getMinutes() === 0 && d.getSeconds() === 0) {
-          console.log("Getting weather at:", d.toTimeString().substring(0, 5))
+          // console.log("Getting weather at:", d.toTimeString().substring(0, 5))
   
           const weatherElements = [getAQI(), getWeather()]
   
@@ -375,7 +351,7 @@ export default class WeatherDisplay extends Component {
 
       // Get Solar, Lunar and API stats 2x/day
       if ((d.getHours() === 4 || d.getHours() === 16) && (d.getMinutes() === 0 && d.getSeconds() === 30)) {
-        console.log("Getting Solar & Lunar Stats at ", d.toTimeString().substring(0, 5))
+        // console.log("Getting Solar & Lunar Stats at ", d.toTimeString().substring(0, 5))
 
         const astroElements = [getSolar, getLunar]
   
@@ -398,20 +374,16 @@ export default class WeatherDisplay extends Component {
         })
       }
 
-      // Reload page at 4am every morning
-      if (d.getHours() === 4 && d.getMinutes() === 0 && d.getSeconds() === 0) {
-        window.location.reload(false)
-      }
+      // // Reload page at 4am every morning
+      // if (d.getHours() === 4 && d.getMinutes() === 0 && d.getSeconds() === 0) {
+      //   window.location.reload(false)
+      // }
 
       this.setState({
         time_and_date : this.set_time_and_date(d)
       })
     }, 1000);
 
-    // // TESTING
-    // setTimeout(() => {
-    //   console.log(this.state)
-    // }, 3000);
   }
 
   componentWillUnmount() {
@@ -557,7 +529,7 @@ export default class WeatherDisplay extends Component {
 
     let cwObj = {}
 
-    if (cw_data.current) {
+    if (cw_data) {
       cwObj.cloud_cover = cw_data.current.cloud,
       cwObj.current_conditions = cw_data.current.condition.text 
       cwObj.gust_mph = Math.round(cw_data.current.gust_mph)
@@ -576,7 +548,7 @@ export default class WeatherDisplay extends Component {
       console.log("Error: unable to set cw_data")
     }
 
-    if (cw_data.forecast) {
+    if (cw_data) {
       cwObj.chance_precip = Math.max(cw_data.forecast.forecastday[0].day.daily_chance_of_rain, cw_data.forecast.forecastday[0].day.daily_chance_of_snow)
       cwObj.chance_rain = cw_data.forecast.forecastday[0].day.daily_chance_of_rain
       cwObj.chance_snow = cw_data.forecast.forecastday[0].day.daily_chance_of_snow
@@ -590,7 +562,7 @@ export default class WeatherDisplay extends Component {
 
     let fwObj = {}
 
-    if (fw_data.forecast) {
+    if (fw_data) {
       fwObj.forecast_short = fw_data.forecast.forecastday[0].day.condition.text
       fwObj.rain_accum_max_in = fw_data.forecast.forecastday[0].day.totalprecip_in
       fwObj.forecast_detailed = ""
@@ -602,6 +574,16 @@ export default class WeatherDisplay extends Component {
     }
 
     return fwObj
+  }
+
+  setPollen(pollenData) {
+
+    if (pollenData) {
+      return pollenData.data
+    } else {
+      console.log("Error: unable to set pollen data")
+      return {}
+    }
   }
 
   render() {
