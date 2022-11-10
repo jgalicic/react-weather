@@ -7,7 +7,7 @@ import CustomMessageContainer from './_components/CustomMessageContainer';
 import TimeContainer from './_components/TimeContainer'
 import TempContainer from './_components/TempContainer'
 import SolarContainer from './_components/SolarContainer'
-// import LunarContainer from './_components/LunarContainer'
+import LunarContainer from './_components/LunarContainer'
 import CurrentConditionsContainer from './_components/CurrentConditionsContainer'
 import bgImg from './_functions/getBgImg';
 // import customMsg from './_functions/createCustomMsg';
@@ -15,8 +15,12 @@ import getHoliday from './_functions/getHoliday';
 import getSeason from './_functions/getSeason';
 import getDayPeriod from './_functions/getDayPeriod';
 import getRGB from './_functions/getRGB';
+import getRGBforAQI from './_functions/getRGBforAQI'
 import calculateDayOrNight from './_functions/calculateDayOrNight';
 import getFakeDevData from './testing/getFakeDevData';
+import timeDisplayConverter from './_functions/timeDisplayConverter';
+import AqiContainer from './_components/AqiContainer';
+import HourlyForecastContainer from './_components/HourlyForecastContainer';
 
 
 export default class WeatherDisplay extends Component {
@@ -66,6 +70,7 @@ export default class WeatherDisplay extends Component {
       },
       // custom_message : "",
       forecast_weather : {
+        hourlyPeriodArr: [],
         forecast_detailed: "",
         forecast_short: "",
         rain_accum_max_in: null,
@@ -121,6 +126,7 @@ export default class WeatherDisplay extends Component {
         day_period: "",
         display_time: "",
         holiday: "",
+        hour: "",
         millis: null,
         month: "",
         season: "",
@@ -172,10 +178,11 @@ export default class WeatherDisplay extends Component {
     }
 
     function getAQI() {
+
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_aqi_api_call")
       } else {
-        return fetch(`https://react-weather-backend-relay.herokuapp.com/api/aqi/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.list[0].components)
+        return fetch(`https://react-weather-backend-relay.herokuapp.com/api/aqi/${config().lat}/${config().lng}/${year}/${month}/${date}/${config().distance_in_miles}`).then(res => res.json()).then(res => res.data[0])
       }
     }
 
@@ -192,7 +199,7 @@ export default class WeatherDisplay extends Component {
       if (config().rapidDevelopmentMode) {
         return getFakeDevData("fake_pollen_call")
       } else {
-        return fetch(`https://react-weather-backend-relay.herokuapp.com/api/pollen/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data.data[0])
+        return fetch(`https://react-weather-backend-relay.herokuapp.com/api/pollen/${config().lat}/${config().lng}`).then(res => res.json()).then((res) => res.data)
       }
     }
 
@@ -212,6 +219,8 @@ export default class WeatherDisplay extends Component {
         }
       })
 
+      console.log("!", res)
+
       let updatedBgImg = ""
       let is_day = ""
       let font_color = ""
@@ -219,26 +228,47 @@ export default class WeatherDisplay extends Component {
       let temp_min_color = ""
       let temp_max_color = ""
       let temp_range_gradient = ""
+      let temp_aqi_color = ""
+      let aqi = {}
+      let pollen = {}
 
-
-      if (res[3]) {
-        updatedBgImg = bgImg(getHoliday(d), getSeason(Date.now()), getDayPeriod(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0])), res[3].current.condition.text)
-      }
 
       if (res[0]) {
         is_day = calculateDayOrNight(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0]).sunrise, this.setSolarStats(res[0]).sunset)
         font_color = calculateDayOrNight(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0]).sunrise, this.setSolarStats(res[0]).sunset) ? config().font_color_day : config().font_color_night
       }
 
+      if (res[2]) {
+        aqi = {
+          number: res[2].AQI,
+          category: res[2].Category.Name,
+          discussion: res[2].Discussion,
+        }
+
+        temp_aqi_color = `rgb(${getRGBforAQI(res[2].AQI)})`
+      }
+
       if (res[3]) {
         temp_min_color =`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.mintemp_f))})`
         temp_max_color = `rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.maxtemp_f))})`
         temp_range_gradient = `linear-gradient(90deg, ${`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.mintemp_f))})`} 5%, ${`rgb(${getRGB(Math.round(res[3].forecast.forecastday[0].day.maxtemp_f))})`} 95%)`
+        updatedBgImg = bgImg(getHoliday(d), getSeason(Date.now()), getDayPeriod(this.set_time_and_date(d).cur_time, this.setSolarStats(res[0])), res[3].current.condition.text)
+      }
+
+      if (res[4]) {
+        pollen = {
+          grass_level: res[4].data[0].Count.grass_pollen,
+          grass_risk: res[4].data[0].Risk.grass_pollen,
+          tree_level: res[4].data[0].Count.tree_pollen,
+          tree_risk: res[4].data[0].Risk.tree_pollen,
+          weed_level: res[4].data[0].Count.weed_pollen,
+          weed_risk: res[4].data[0].Risk.weed_pollen
+        }
       }
 
       this.setState({
 
-        aqi: this.setAQI(res[2]),
+        aqi: aqi,
         current_weather : this.setCurrentWeather(res[3]),
         // custom_message : "",
         forecast_weather : this.setForecastWeather(res[3]),
@@ -248,10 +278,11 @@ export default class WeatherDisplay extends Component {
           weather_icon : "",
         },
         lunar: this.setLunarStats(res[1]),
-        pollen :  this.setPollen(res[4]),
+        pollen :  pollen,
         solar: this.setSolarStats(res[0]),
         styles : {
           font_color,
+          temp_aqi_color,
           temp_min_color,
           temp_max_color,
           temp_range_gradient,
@@ -261,6 +292,8 @@ export default class WeatherDisplay extends Component {
         // toggle_nightmode : false,
         // weather_alerts : {}
       })
+
+      console.log("!", this.state)
     })
 
     // Iterative calls
@@ -270,12 +303,12 @@ export default class WeatherDisplay extends Component {
 
 
       if (true) {
-        // Update weather info every 15 minutes during the day
+        // Update weather and AQI info every 15 minutes during the day
         if ((
           d.getMinutes() === 0 || 
           d.getMinutes() === 15 ||
           d.getMinutes() === 30 || 
-          d.getMinutes() === 48) && 
+          d.getMinutes() === 45) && 
           d.getSeconds() === 0) {
 
           //console.log("Getting weather at:", d.toTimeString().substring(0, 5))
@@ -374,11 +407,6 @@ export default class WeatherDisplay extends Component {
         })
       }
 
-      // // Reload page at 4am every morning
-      // if (d.getHours() === 4 && d.getMinutes() === 0 && d.getSeconds() === 0) {
-      //   window.location.reload(false)
-      // }
-
       this.setState({
         time_and_date : this.set_time_and_date(d)
       })
@@ -410,6 +438,7 @@ export default class WeatherDisplay extends Component {
       day_period : day_period,
       display_time : d.toLocaleTimeString().match(/[0-9]+[:][0-9]+/g)[0],
       holiday : getHoliday(d),
+      hour: d.getHours(),
       millis : Date.now(),
       month : config().monthNames[d.getMonth()],
       season : getSeason(Date.now()),
@@ -558,11 +587,68 @@ export default class WeatherDisplay extends Component {
   }
 
   setForecastWeather(fw_data) {
-    // console.log("FW", fw_data)
+     console.log("FW", fw_data)
 
     let fwObj = {}
+    let d = new Date()
+
+    let hourlyPeriodArr = []
+
+    //console.log("BBB", fw_data.forecast.forecastday[0].hour[d.getHours()])
+
+    let stillCheckingTodaysForecast = true
+    let hourTracker = d.getHours()
+    let maxHour = 23
+    let hourIncrementor = 1
+    let periodIncrementor = 1
+
+    while (stillCheckingTodaysForecast) {
+      if (hourTracker >= maxHour) {
+        stillCheckingTodaysForecast = false
+        break
+      } 
+      
+      //console.log("hourTracker: ", hourTracker)
+
+      hourlyPeriodArr[periodIncrementor-1] = {
+        time: timeDisplayConverter(fw_data.forecast.forecastday[0].hour[hourTracker + 1].time.slice(10,16)),
+        temp: fw_data.forecast.forecastday[0].hour[hourTracker + 1].temp_f,
+        chance_of_rain: fw_data.forecast.forecastday[0].hour[hourTracker + 1].chance_of_rain,
+        chance_of_snow: fw_data.forecast.forecastday[0].hour[hourTracker + 1].chance_of_snow,
+        wind_dir: fw_data.forecast.forecastday[0].hour[hourTracker + 1].wind_dir,
+        wind_mph: fw_data.forecast.forecastday[0].hour[hourTracker + 1].wind_mph,
+        contition: fw_data.forecast.forecastday[0].hour[hourTracker + 1].condition.text,
+      }
+
+      periodIncrementor++
+      hourTracker += hourIncrementor
+      hourIncrementor += hourIncrementor
+    }
+
+
+    while (!stillCheckingTodaysForecast && periodIncrementor < 5) {
+
+      hourlyPeriodArr[periodIncrementor-1] = {
+        time: fw_data.forecast.forecastday[0].hour[hourTracker - 23].time,
+        temp: fw_data.forecast.forecastday[0].hour[hourTracker - 23].temp_f,
+        chance_of_rain: fw_data.forecast.forecastday[0].hour[hourTracker - 23].chance_of_rain,
+        chance_of_snow: fw_data.forecast.forecastday[0].hour[hourTracker - 23].chance_of_snow,
+        wind_dir: fw_data.forecast.forecastday[0].hour[hourTracker - 23].wind_dir,
+        wind_mph: fw_data.forecast.forecastday[0].hour[hourTracker - 23].wind_mph,
+        contition: fw_data.forecast.forecastday[0].hour[hourTracker - 23].condition.text,
+      }
+
+      periodIncrementor++
+      hourTracker += hourIncrementor
+      hourIncrementor += hourIncrementor
+      //console.log("!!!!", hourTracker)
+    }
+
+    console.log(hourlyPeriodArr)
+
 
     if (fw_data) {
+      fwObj.hourlyPeriodArr = hourlyPeriodArr
       fwObj.forecast_short = fw_data.forecast.forecastday[0].day.condition.text
       fwObj.rain_accum_max_in = fw_data.forecast.forecastday[0].day.totalprecip_in
       fwObj.forecast_detailed = ""
@@ -576,15 +662,15 @@ export default class WeatherDisplay extends Component {
     return fwObj
   }
 
-  setPollen(pollenData) {
+  // setPollen(pollenData) {
 
-    if (pollenData) {
-      return pollenData.data
-    } else {
-      console.log("Error: unable to set pollen data")
-      return {}
-    }
-  }
+  //   if (pollenData) {
+  //     return pollenData.data
+  //   } else {
+  //     console.log("Error: unable to set pollen data")
+  //     return {}
+  //   }
+  // }
 
   render() {
     return (
@@ -600,15 +686,24 @@ export default class WeatherDisplay extends Component {
           <TempContainer weather={this.state.current_weather} css_style={this.state.styles}/>
           <div className="AstroContainer">
             <SolarContainer solar={this.state.solar} css_style={this.state.styles}/>
+            {/* <AqiContainer aqi={this.state.aqi} css_style={this.state.styles}/> */}
             {/* <LunarContainer lunar={this.state.lunar} css_style={this.state.styles}/> */}
           </div>
           <CurrentConditionsContainer current_conditions={this.state.current_weather.current_conditions} is_day={this.state.is_day} css_style={this.state.styles}/>
         </div>
-        <div className="AstroContainerMobile">
-            <SolarContainer solar={this.state.solar} css_style={this.state.styles}/>
-            {/* <LunarContainer lunar={this.state.lunar} css_style={this.state.styles}/> */}
-        </div>
         <div className="LowerBar">
+          <AqiContainer aqi={this.state.aqi} pollen={this.state.pollen} css_style={this.state.styles}></AqiContainer>
+          <HourlyForecastContainer 
+            f={this.state.forecast_weather.hourlyPeriodArr}
+            css_style={this.state.styles}>
+          </HourlyForecastContainer>
+
+          <div className="DailyForecastContainer">
+            <div>Wednesday</div>
+            <div>Thursday</div>
+            <div>Friday</div>
+            <div>Saturday</div>
+          </div>
         </div>
       </div>
     )

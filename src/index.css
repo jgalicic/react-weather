@@ -14,8 +14,8 @@ code {
 
 /* DEVELOPMENT MODE */
 
-/* 
 
+/* 
  .PageContainer {
   outline: 2px solid red;
 }
@@ -40,6 +40,10 @@ code {
   outline: 2px solid blue;
 }
 
-.LowerBar {
+.NotificationBar {
   outline: 2px solid purple;
+}
+
+.LowerBar {
+  outline: 2px solid white;
 }  */

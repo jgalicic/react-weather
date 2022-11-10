@@ -1,0 +1,32 @@
+.HourlyForecastContainer {
+  padding: 5px;
+}
+
+
+.hourlyForecastRow {
+  height: 20%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.hourlyForecastCol {
+  flex: 1;
+  font-size: 1em;
+}
+
+.hourlyForecastText {
+  text-align: center;
+}
+
+.hourlyForecastCol1 {
+  text-align: right;
+  position: relative;
+  right: 8px;
+}
+
+/* Mobile screens */
+@media only screen and (max-width: 600px) {
+
+}

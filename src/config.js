@@ -1,15 +1,5 @@
 export default function config() {
   return {
-    rapidDevelopmentMode: false,
-    font_color_day: `rgb(255, 253, 240)`,
-    font_color_night: `rgb(224, 210, 137)`,
-    lat: `47.6`,
-    lng: `-122.3`,
-    openweathermap_ID: process.env.REACT_APP_OPEN_WEATHER_MAP_ID,
-    weatherAPI_key : process.env.REACT_APP_OPEN_WEATHER_MAP_KEY,
-    ambeeAPI_key: process.env.REACT_APP_AMBEE_API_KEY,
-    backend_username : ``,
-    backend_password : ``,
     day_of_weekNames : [
       "Sunday",
       "Monday",
@@ -19,6 +9,12 @@ export default function config() {
       "Friday",
       "Saturday",
     ],
+    distance_in_miles: 25,
+    font_color_day: `rgb(255, 253, 240)`,
+    font_color_night: `rgb(224, 210, 137)`,
+    lat: `47.6`,
+    lng: `-122.3`,
+
     monthNames : [
       "Jan",
       "Feb",
@@ -32,6 +28,7 @@ export default function config() {
       "Oct",
       "Nov",
       "Dec",
-    ]
+    ],
+    rapidDevelopmentMode: true,
   }
 }

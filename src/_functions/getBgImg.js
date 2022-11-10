@@ -584,8 +584,11 @@ export default function getBgImg(holiday, season, period, weather) {
   //   bgImgURL = `/${holiday_name}/${weather_name}/${day_period}`
   // } 
 
-  //return bgImgURL
+  // Ensure browsers don't hang on to old cached background images
+  bgImgURL = `${bgImgURL}?random=${Math.random().toFixed(6)}`
+
   console.log(bgImgURL)
+
   return bgImgURL
  
 }

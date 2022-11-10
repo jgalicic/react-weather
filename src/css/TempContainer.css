@@ -10,21 +10,17 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  font-size: 15vw;
+  font-size: 12vw;
   line-height: .9; 
   padding-left: 5vw;
 }
 
 .DegreeSymbol {
-  font-size: 9vw;
   line-height: .7; 
-}
+  font-size: 8vw;
+  position: relative;
+  right: 5px;
 
-
-
-.DegreeSymbol {
-  font-size: 9vw;
-  
 }
 
 .TempRangeContainer {

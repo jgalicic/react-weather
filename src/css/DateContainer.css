@@ -6,32 +6,22 @@
 }
 
 .DayOfWeek {
-  font-size: 10vw;
+  font-size: 6vw;
 }
 
 .MonthAndDate {
-  font-size: 10vw;
+  font-size: 6vw;
 }
 
 /* Mobile screens */
 @media only screen and (max-width: 600px) {
 
-
-
-  .DateContainer {
-    display: flex;
-    flex-direction: column;
-  }
-
-
-
-
   .DayOfWeek {
-    font-size: 14vw;
-    text-align: center;
+    font-size: 10vw;
+
   }
   .MonthAndDate {
-    font-size: 20vw;
-    text-align: center;
+    font-size: 10vw;
+
   }
 }

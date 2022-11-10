@@ -1,0 +1,57 @@
+.AqiContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.AqiContainer-HorizontalBar {
+  display: flex;
+  flex-direction: row;
+  height: 25%;
+}
+
+.AqiContainer-LeftInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 33%;
+  align-items: center;
+}
+
+.AqiContainer-LeftIcon {
+  font-size: 10.6pt;
+}
+
+.AqiContainer-LeftText {
+  font-size: 6pt;
+  text-align: center;
+}
+
+.AqiContainer-RightInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 66%;
+  align-items: center;
+  position: relative;
+  top: 1px;
+}
+
+
+.AqiNumber {
+  font-size: 13pt;
+  text-align: center;
+  position: relative;
+  bottom: 3px;
+}
+
+.AqiCategory {
+  font-size: 7pt;
+  position: relative;
+  bottom: 9.5px;
+}
+
+/* Mobile screens */
+@media only screen and (max-width: 600px) {
+
+}
