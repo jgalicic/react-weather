@@ -66,19 +66,19 @@ body {
 .AqiContainer {
   height: 100%;
   width: 15%;
-  background: rgb(32, 0, 0);
+  background: black;
 }
 
 .HourlyForecastContainer {
   height: 100%;
   width: 25%;
-  background: rgb(0, 0, 22);
+  background: black;
 }
 
 .DailyForecastContainer {
   height: 100%;
   width: 60%;
-  background: rgb(0, 23, 0);
+  background: black;
 }
 
 /* End Lower Bar */

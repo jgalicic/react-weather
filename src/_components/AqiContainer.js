@@ -7,7 +7,7 @@ import '../css/AqiContainer.css';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeadSideMask, faTree, faCertificate, faCannabis  } from '@fortawesome/free-solid-svg-icons'
+import { faHeadSideMask, faTree, faIcicles, faCertificate, faCannabis  } from '@fortawesome/free-solid-svg-icons'
 
 export default class AqiContainer extends Component {
 
@@ -22,8 +22,8 @@ export default class AqiContainer extends Component {
           </div>
           
           <div className="AqiContainer-RightInfo">
-            <div className="AqiNumber" style={{color: `${this.props.css_style.temp_aqi_color}`}}>{this.props.aqi.number}</div> 
-            <div className="AqiCategory" style={{color: `${this.props.css_style.temp_aqi_color}`}}>{this.props.aqi.category}</div>
+            <div className="AqiNumber" style={{color: this.props.css_style.font_color}}>{this.props.aqi.number}</div> 
+            <div className="AqiCategory" style={{color: this.props.css_style.font_color}}>{this.props.aqi.category}</div>
           </div>
         </div>
         <div className="AqiContainer-HorizontalBar">
@@ -40,7 +40,7 @@ export default class AqiContainer extends Component {
 
         <div className="AqiContainer-HorizontalBar">
           <div className="AqiContainer-LeftInfo">
-            <FontAwesomeIcon icon={faCertificate} className="AqiContainer-LeftIcon" style={{color: this.props.css_style.font_color}}/>
+            <FontAwesomeIcon icon={faIcicles} className="AqiContainer-LeftIcon" style={{color: this.props.css_style.font_color, transform: "rotate(180deg)"}}/>
             <p className="AqiContainer-LeftText" style={{color: this.props.css_style.font_color}}>GRASS</p>
           </div>
           
@@ -51,7 +51,7 @@ export default class AqiContainer extends Component {
         </div>
         <div className="AqiContainer-HorizontalBar">
           <div className="AqiContainer-LeftInfo">
-            <FontAwesomeIcon icon={faCannabis} className="AqiContainer-LeftIcon" style={{color: this.props.css_style.font_color}}/>
+            <FontAwesomeIcon icon={faCertificate} className="AqiContainer-LeftIcon" style={{color: this.props.css_style.font_color}}/>
             <p className="AqiContainer-LeftText" style={{color: this.props.css_style.font_color}}>WEED</p>
           </div>
           

@@ -7,10 +7,26 @@
 
 .DayOfWeek {
   font-size: 6vw;
+  z-index: 2;
 }
 
 .MonthAndDate {
   font-size: 6vw;
+  z-index: 2;
+}
+
+/* Medium screens */
+@media only screen and (max-width: 1200px) {
+  .TimeContainer {
+    font-size: 15vw;
+  }
+}
+
+/* Medium-small screens */
+@media only screen and (max-width: 800px) {
+  .TimeContainer {
+    font-size: 20vw;
+  }
 }
 
 /* Mobile screens */

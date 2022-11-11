@@ -15,6 +15,7 @@ export default class HourlyForecastContainer extends Component {
           <div className='hourlyForecastRow'>
             <div className="hourlyForecastTime hourlyForecastCol">
               <div className="hourlyForecastCol1 hourlyForecastText" style={{color: this.props.css_style.font_color}}>
+ 
               </div>
             </div>
             <div className="hourlyForecastTemp hourlyForecastCol">

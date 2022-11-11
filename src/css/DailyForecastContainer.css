@@ -1,0 +1,35 @@
+.tileContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding-top: 5px;
+}
+
+.dailyForecastTile {
+  flex: 1;
+}
+
+.dailyForecastWeatherIcon {
+  font-size: 2.4em;
+  text-align: center;
+}
+
+.dailyForecastDayOfWeek {
+  font-size: .8em;
+  text-align: center;
+}
+
+.dailyForecastTempContainer {
+  text-align: center;
+}
+
+.dailyForecastPrecipContainer {
+  text-align: center;
+  font-size: .8em;
+}
+
+
+/* Mobile screens */
+@media only screen and (max-width: 600px) {
+
+}

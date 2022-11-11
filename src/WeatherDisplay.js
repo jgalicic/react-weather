@@ -21,6 +21,7 @@ import getFakeDevData from './testing/getFakeDevData';
 import timeDisplayConverter from './_functions/timeDisplayConverter';
 import AqiContainer from './_components/AqiContainer';
 import HourlyForecastContainer from './_components/HourlyForecastContainer';
+import DailyForecastContainer from './_components/DailyForecastContainer';
 
 
 export default class WeatherDisplay extends Component {
@@ -70,7 +71,7 @@ export default class WeatherDisplay extends Component {
       },
       // custom_message : "",
       forecast_weather : {
-        hourlyPeriodArr: [],
+        hourly: [],
         forecast_detailed: "",
         forecast_short: "",
         rain_accum_max_in: null,
@@ -123,6 +124,7 @@ export default class WeatherDisplay extends Component {
         cur_time: "",
         day_of_month: "",
         day_of_week: "",
+        day_of_week_num: null,
         day_period: "",
         display_time: "",
         holiday: "",
@@ -219,8 +221,6 @@ export default class WeatherDisplay extends Component {
         }
       })
 
-      console.log("!", res)
-
       let updatedBgImg = ""
       let is_day = ""
       let font_color = ""
@@ -293,7 +293,6 @@ export default class WeatherDisplay extends Component {
         // weather_alerts : {}
       })
 
-      console.log("!", this.state)
     })
 
     // Iterative calls
@@ -435,6 +434,7 @@ export default class WeatherDisplay extends Component {
       cur_time : d.toTimeString().substring(0, 5),
       day_of_month : d.getDate(),
       day_of_week : config().day_of_weekNames[d.getDay()],
+      day_of_week_num : parseInt(d.getDay()),
       day_period : day_period,
       display_time : d.toLocaleTimeString().match(/[0-9]+[:][0-9]+/g)[0],
       holiday : getHoliday(d),
@@ -587,30 +587,25 @@ export default class WeatherDisplay extends Component {
   }
 
   setForecastWeather(fw_data) {
-     console.log("FW", fw_data)
 
     let fwObj = {}
     let d = new Date()
 
-    let hourlyPeriodArr = []
-
-    //console.log("BBB", fw_data.forecast.forecastday[0].hour[d.getHours()])
-
+    // Hourly Forecast
+    let hourly = []
     let stillCheckingTodaysForecast = true
     let hourTracker = d.getHours()
     let maxHour = 23
     let hourIncrementor = 1
     let periodIncrementor = 1
 
+    // Hourly Forecast before midnight
     while (stillCheckingTodaysForecast) {
       if (hourTracker >= maxHour) {
         stillCheckingTodaysForecast = false
         break
       } 
-      
-      //console.log("hourTracker: ", hourTracker)
-
-      hourlyPeriodArr[periodIncrementor-1] = {
+      hourly[periodIncrementor-1] = {
         time: timeDisplayConverter(fw_data.forecast.forecastday[0].hour[hourTracker + 1].time.slice(10,16)),
         temp: fw_data.forecast.forecastday[0].hour[hourTracker + 1].temp_f,
         chance_of_rain: fw_data.forecast.forecastday[0].hour[hourTracker + 1].chance_of_rain,
@@ -625,11 +620,11 @@ export default class WeatherDisplay extends Component {
       hourIncrementor += hourIncrementor
     }
 
-
+    // Hourly Forecast after midnight
     while (!stillCheckingTodaysForecast && periodIncrementor < 5) {
 
-      hourlyPeriodArr[periodIncrementor-1] = {
-        time: fw_data.forecast.forecastday[0].hour[hourTracker - 23].time,
+      hourly[periodIncrementor-1] = {
+        time: timeDisplayConverter(fw_data.forecast.forecastday[0].hour[hourTracker - 23].time.slice(10,16)),
         temp: fw_data.forecast.forecastday[0].hour[hourTracker - 23].temp_f,
         chance_of_rain: fw_data.forecast.forecastday[0].hour[hourTracker - 23].chance_of_rain,
         chance_of_snow: fw_data.forecast.forecastday[0].hour[hourTracker - 23].chance_of_snow,
@@ -641,36 +636,46 @@ export default class WeatherDisplay extends Component {
       periodIncrementor++
       hourTracker += hourIncrementor
       hourIncrementor += hourIncrementor
-      //console.log("!!!!", hourTracker)
     }
 
-    console.log(hourlyPeriodArr)
+    // Daily Forecast
+    let daily = []
 
+    let numDaysToDisplay = 5
+    let curDay = d.getDay() // current day (0-6)
+    let dayOfWeekTracker = d.getDay() + 1 // increments up to 6 then back to 0
+    let incrementor = 0
+    const MAX_DAYS_IN_WEEK = 6 // Don't change!
+
+    while ( incrementor < numDaysToDisplay ) {
+      
+      if (dayOfWeekTracker > MAX_DAYS_IN_WEEK) dayOfWeekTracker = 0
+
+      daily[incrementor] = {
+        condition: fw_data.forecast.forecastday[incrementor].day.condition.text,
+        daily_chance_of_rain:fw_data.forecast.forecastday[incrementor].day.daily_chance_of_rain,
+        daily_chance_of_snow:fw_data.forecast.forecastday[incrementor].day.daily_chance_of_snow,
+        dayOfWeek: config().day_of_weekNames[dayOfWeekTracker],
+        humidity_avg: fw_data.forecast.forecastday[incrementor].day.avghumidity,
+        max_temp: fw_data.forecast.forecastday[incrementor].day.maxtemp_f,
+        min_temp: fw_data.forecast.forecastday[incrementor].day.mintemp_f,
+        totalprecip_in: fw_data.forecast.forecastday[incrementor].day.totalprecip_in,
+        totalsnow_in: fw_data.forecast.forecastday[incrementor].day.totalsnow_cm * 2.54,
+        wind_mph: fw_data.forecast.forecastday[incrementor].day.maxwind_mph 
+      }
+
+      dayOfWeekTracker++
+      incrementor++
+    }
 
     if (fw_data) {
-      fwObj.hourlyPeriodArr = hourlyPeriodArr
-      fwObj.forecast_short = fw_data.forecast.forecastday[0].day.condition.text
-      fwObj.rain_accum_max_in = fw_data.forecast.forecastday[0].day.totalprecip_in
-      fwObj.forecast_detailed = ""
-      fwObj.rain_accum_min_in = ""
-      fwObj.snow_accum_max_in = ""
-      fwObj.snow_accum_min_in = ""
+      fwObj.hourly = hourly
+      fwObj.daily = daily
     } else {
       console.log("Error: unable to set fw_data")
     }
-
     return fwObj
   }
-
-  // setPollen(pollenData) {
-
-  //   if (pollenData) {
-  //     return pollenData.data
-  //   } else {
-  //     console.log("Error: unable to set pollen data")
-  //     return {}
-  //   }
-  // }
 
   render() {
     return (
@@ -686,24 +691,25 @@ export default class WeatherDisplay extends Component {
           <TempContainer weather={this.state.current_weather} css_style={this.state.styles}/>
           <div className="AstroContainer">
             <SolarContainer solar={this.state.solar} css_style={this.state.styles}/>
-            {/* <AqiContainer aqi={this.state.aqi} css_style={this.state.styles}/> */}
-            {/* <LunarContainer lunar={this.state.lunar} css_style={this.state.styles}/> */}
           </div>
           <CurrentConditionsContainer current_conditions={this.state.current_weather.current_conditions} is_day={this.state.is_day} css_style={this.state.styles}/>
         </div>
         <div className="LowerBar">
-          <AqiContainer aqi={this.state.aqi} pollen={this.state.pollen} css_style={this.state.styles}></AqiContainer>
+          <AqiContainer 
+            aqi={this.state.aqi} 
+            pollen={this.state.pollen} 
+            css_style={this.state.styles}>
+          </AqiContainer>
+
           <HourlyForecastContainer 
-            f={this.state.forecast_weather.hourlyPeriodArr}
+            f={this.state.forecast_weather.hourly}
             css_style={this.state.styles}>
           </HourlyForecastContainer>
 
-          <div className="DailyForecastContainer">
-            <div>Wednesday</div>
-            <div>Thursday</div>
-            <div>Friday</div>
-            <div>Saturday</div>
-          </div>
+          <DailyForecastContainer
+            f={this.state.forecast_weather.daily}
+            css_style={this.state.styles}>
+          </DailyForecastContainer>
         </div>
       </div>
     )
