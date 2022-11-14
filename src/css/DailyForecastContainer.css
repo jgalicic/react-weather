@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-  padding-top: 5px;
 }
 
 .dailyForecastTile {
@@ -10,12 +9,12 @@
 }
 
 .dailyForecastWeatherIcon {
-  font-size: 2.4em;
+  font-size: 5.5vw;
   text-align: center;
 }
 
 .dailyForecastDayOfWeek {
-  font-size: .8em;
+  font-size: 1.6vw;
   text-align: center;
 }
 
@@ -23,9 +22,14 @@
   text-align: center;
 }
 
+.dailyForecastTempContainer span{
+  font-size: 1.5vw;
+}
+
+
 .dailyForecastPrecipContainer {
   text-align: center;
-  font-size: .8em;
+  font-size: 1.2vw;
 }
 
 

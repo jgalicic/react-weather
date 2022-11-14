@@ -1,11 +1,13 @@
 .TimeContainer {
-  font-size: 15vw;
+  font-size: 22vw;
+  position: relative;
+  top: 6vh;
 }
 
 /* Medium screens */
 @media only screen and (max-width: 1200px) {
   .TimeContainer {
-    font-size: 15vw;
+    font-size: 18vw;
   }
 }
 

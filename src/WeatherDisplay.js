@@ -1,27 +1,29 @@
 // Created By Justin Galicic in 2021
 
+// React, Config, & Testing
 import React, { Component } from 'react'
 import config from './config'
+import getFakeDevData from './testing/getFakeDevData';
+
+// Components
 import DateContainer from './_components/DateContainer'
 import CustomMessageContainer from './_components/CustomMessageContainer';
 import TimeContainer from './_components/TimeContainer'
 import TempContainer from './_components/TempContainer'
-import SolarContainer from './_components/SolarContainer'
-import LunarContainer from './_components/LunarContainer'
 import CurrentConditionsContainer from './_components/CurrentConditionsContainer'
+import AqiContainer from './_components/AqiContainer';
+import HourlyForecastContainer from './_components/HourlyForecastContainer';
+import DailyForecastContainer from './_components/DailyForecastContainer';
+
+// Functions
 import bgImg from './_functions/getBgImg';
 // import customMsg from './_functions/createCustomMsg';
 import getHoliday from './_functions/getHoliday';
 import getSeason from './_functions/getSeason';
 import getDayPeriod from './_functions/getDayPeriod';
 import getRGB from './_functions/getRGB';
-import getRGBforAQI from './_functions/getRGBforAQI'
 import calculateDayOrNight from './_functions/calculateDayOrNight';
-import getFakeDevData from './testing/getFakeDevData';
 import timeDisplayConverter from './_functions/timeDisplayConverter';
-import AqiContainer from './_components/AqiContainer';
-import HourlyForecastContainer from './_components/HourlyForecastContainer';
-import DailyForecastContainer from './_components/DailyForecastContainer';
 
 
 export default class WeatherDisplay extends Component {
@@ -228,7 +230,6 @@ export default class WeatherDisplay extends Component {
       let temp_min_color = ""
       let temp_max_color = ""
       let temp_range_gradient = ""
-      let temp_aqi_color = ""
       let aqi = {}
       let pollen = {}
 
@@ -244,8 +245,6 @@ export default class WeatherDisplay extends Component {
           category: res[2].Category.Name,
           discussion: res[2].Discussion,
         }
-
-        temp_aqi_color = `rgb(${getRGBforAQI(res[2].AQI)})`
       }
 
       if (res[3]) {
@@ -282,7 +281,6 @@ export default class WeatherDisplay extends Component {
         solar: this.setSolarStats(res[0]),
         styles : {
           font_color,
-          temp_aqi_color,
           temp_min_color,
           temp_max_color,
           temp_range_gradient,
@@ -679,7 +677,7 @@ export default class WeatherDisplay extends Component {
 
   render() {
     return (
-      <div className="PageContainer" style={{backgroundImage: `url(${this.state.img.weather_bg_url})`}}>
+      <div className="PageContainer" style={{backgroundImage: `url(${this.state.img.weather_bg_url})`}}  >
         <div className="UpperBar">
           <DateContainer date={this.state.time_and_date} css_style={this.state.styles}/>
           <CustomMessageContainer msg={this.state.custom_message} css_style={this.state.styles}/>
@@ -689,9 +687,9 @@ export default class WeatherDisplay extends Component {
         </div>
         <div className="LowerMiddleBar">
           <TempContainer weather={this.state.current_weather} css_style={this.state.styles}/>
-          <div className="AstroContainer">
+          {/* <div className="AstroContainer">
             <SolarContainer solar={this.state.solar} css_style={this.state.styles}/>
-          </div>
+          </div> */}
           <CurrentConditionsContainer current_conditions={this.state.current_weather.current_conditions} is_day={this.state.is_day} css_style={this.state.styles}/>
         </div>
         <div className="LowerBar">

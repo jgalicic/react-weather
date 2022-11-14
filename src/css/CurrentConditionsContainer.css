@@ -9,15 +9,14 @@
 }
 
 .ForecastIcon {
-  font-size: 10vw;
+  font-size: 15vw;
 }
 
 .ShortForecastText {
-  font-size: 3vw;
+  font-size: 3.5vw;
   display: flex;
   justify-content: center;
   position: relative;
-  right: .5vw;
   bottom: 1vh;
 }
 

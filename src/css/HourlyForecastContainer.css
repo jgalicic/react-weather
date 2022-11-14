@@ -1,5 +1,7 @@
 .HourlyForecastContainer {
-  padding: 5px;
+  padding: 5px 50px 5px 10px;
+  position: relative;
+  left: 30px;
 }
 
 
@@ -13,7 +15,7 @@
 
 .hourlyForecastCol {
   flex: 1;
-  font-size: .9em;
+  font-size: 1.6vw;
 }
 
 .hourlyForecastText {

@@ -23,7 +23,12 @@ body {
 /* Day and Date */
 .UpperBar {
   height: 12vh;
-  background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.3) 100%);
+  background: linear-gradient(
+    180deg, rgba(0,0,0,0.6) 0%, 
+    rgba(0,0,0,0.5) 25%, 
+    rgba(0,0,0,0.4) 50%,
+    rgba(0,0,0,0.3) 75%, 
+    rgba(0,0,0,0.24) 100%);
 }
 
 /* Time */
@@ -32,8 +37,16 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  height: 35vh;
-  background: linear-gradient(180deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 100%);
+  height: 38vh;
+  background: linear-gradient(
+    180deg, rgba(0,0,0,0.24) 0%, 
+    rgba(0,0,0,0.15) 10%, 
+    rgba(0,0,0,0.08) 20%,
+    rgba(0,0,0,0.06) 30%,
+    rgba(0,0,0,0.04) 40%,
+    rgba(0,0,0,0.02) 50%,
+    rgba(0,0,0,0.01) 60%,
+    rgba(0,0,0,0.0) 70%);
 }
 
 /* Temp and Weather Icon */
@@ -42,7 +55,18 @@ body {
   flex-direction: row;
   justify-content: space-between;
   height: 25vh;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(
+    180deg, rgba(0,0,0,0) 0%, 
+    rgba(0,0,0,.02) 10%, 
+    rgba(0,0,0,.04) 20%, 
+    rgba(0,0,0,.06) 30%, 
+    rgba(0,0,0,.08) 40%, 
+    rgba(0,0,0,.129) 50%, 
+    rgba(0,0,0,.186) 60%, 
+    rgba(0,0,0,.258) 70%, 
+    rgba(0,0,0,.348) 80%, 
+    rgba(0,0,0,.46) 90%, 
+    rgba(0,0,0,0.6) 100%);
 }
 
 /* Sunrise & Sunset */
@@ -59,26 +83,23 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 28vh;
-  background: grey;
+  height: 25vh;
+  background: rgba(0,0,0,0.75)
 }
 
 .AqiContainer {
   height: 100%;
-  width: 15%;
-  background: black;
+  width: 10%;
 }
 
 .HourlyForecastContainer {
   height: 100%;
-  width: 25%;
-  background: black;
+  width: 30%;
 }
 
 .DailyForecastContainer {
   height: 100%;
   width: 60%;
-  background: black;
 }
 
 /* End Lower Bar */

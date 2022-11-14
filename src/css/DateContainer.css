@@ -6,12 +6,12 @@
 }
 
 .DayOfWeek {
-  font-size: 6vw;
+  font-size: 8vw;
   z-index: 2;
 }
 
 .MonthAndDate {
-  font-size: 6vw;
+  font-size: 8vw;
   z-index: 2;
 }
 

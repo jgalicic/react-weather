@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import getRGBforTree from '../_functions/getRGBforTreePollen';
 import getRGBforGrass from '../_functions/getRGBforGrassPollen';
 import getRGBforWeed from '../_functions/getRGBforWeedPollen';
+import getRGBforAQI from '../_functions/getRGBforAQI';
 
 import '../css/AqiContainer.css';
 
@@ -22,8 +23,8 @@ export default class AqiContainer extends Component {
           </div>
           
           <div className="AqiContainer-RightInfo">
-            <div className="AqiNumber" style={{color: this.props.css_style.font_color}}>{this.props.aqi.number}</div> 
-            <div className="AqiCategory" style={{color: this.props.css_style.font_color}}>{this.props.aqi.category}</div>
+            <div className="AqiNumber" style={{color: getRGBforAQI(this.props.aqi.number)}}>{this.props.aqi.number}</div> 
+            <div className="AqiCategory" style={{color: getRGBforAQI(this.props.aqi.number)}}>{this.props.aqi.category}</div>
           </div>
         </div>
         <div className="AqiContainer-HorizontalBar">

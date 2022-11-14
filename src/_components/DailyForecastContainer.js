@@ -29,7 +29,7 @@ export default class DailyForecastContainer extends Component {
                   <div
                     className="dailyForecastTempContainer"
                     style={{color: this.props.css_style.font_color}}>
-                      <span style={{fontSize: "1.1em"}}>{Math.ceil(day.max_temp)}°</span> <span style={{color: "grey"}}>{Math.floor(day.min_temp)}°</span>
+                      <span style={{fontSize: "1.7vw"}}>{Math.ceil(day.max_temp)}°</span> <span style={{color: "grey"}}>{Math.floor(day.min_temp)}°</span>
                   </div>
                   <div className="dailyForecastPrecipContainer"
                   style={{color: this.props.css_style.font_color}}>
