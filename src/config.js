@@ -38,6 +38,6 @@ export default function config() {
       "Nov",
       "Dec",
     ],
-    rapidDevelopmentMode: true,
+    rapidDevelopmentMode: false,
   }
 }
